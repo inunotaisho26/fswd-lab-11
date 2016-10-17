@@ -21,7 +21,7 @@ angular.module('fswd.todo', [])
     };
 
     this.addTodo = function(toAdd) {
-      $http.post('/tasks', { name: toAdd })
+      $http.post('/tasks', { todo: toAdd })
         .then(function(response) {
           todoList = response.data;
         });
