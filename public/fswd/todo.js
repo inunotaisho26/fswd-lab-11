@@ -52,7 +52,7 @@ angular.module('fswd.todo', [])
       restrict: 'E',
       scope: {
         todo: '=task'
-      }
+      },
       template: "{{ todo.name }} ({{ todo.createdAt | date:'shortDate'}})"
     }
   });
