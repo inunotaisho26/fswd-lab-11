@@ -20,7 +20,7 @@ angular.module('fswd.todo', [])
     };
 
     this.addTodo = function(toAdd) {
-      $http.post('/tasks', { name: toAdd })
+      $http.post('/tasks', { todo: toAdd })
         .then(function(response) {
           todoList = response.data;
         });
@@ -44,5 +44,15 @@ angular.module('fswd.todo', [])
     }, function(newVal, oldVal) {
       vm.todoList = newVal;
     });
+
+  })
+  .directive('fswdTask', function(){
+    return {
+      restrict: 'E',
+      scope:{
+        todo: '=task'
+      }
+      template: "{{ todo.name }}({{ todo.createdAt | date:'shortDate'}})"
+    }
 
   });

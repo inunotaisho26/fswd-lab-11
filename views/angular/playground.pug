@@ -5,9 +5,9 @@ block body
   div(ng-controller="TodoListController as vm")
     input(type="text" ng-model="toFilter")
     ul
-      li(ng-repeat="todo in vm.todoList | filter: { name: toFilter } track by $index")
+      li(ng-repeat="task in vm.todoList | filter: { name: toFilter } track by $index")
         input(type="checkbox" ng-click="vm.removeTodo(todo)")
-        |  {{ todo.name }} ({{ todo.createdAt | date:'shortDate'}})
+        fswd-task(task="task")
 
     input(ng-model="toAdd" type="text")
     button(ng-click="vm.addTodo(toAdd); toAdd = ''") Add it!
