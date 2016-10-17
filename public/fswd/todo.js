@@ -1,4 +1,5 @@
 import angular from 'angular';
+import _ from 'lodash';
 
 angular.module('fswd.todo', [])
   .service('TodoListService', function($http) {
@@ -45,4 +46,13 @@ angular.module('fswd.todo', [])
       vm.todoList = newVal;
     });
 
+  })
+  .directive('fswdTask', function() {
+    return {
+      restrict: 'E',
+      scope: {
+        todo: '=task'
+      }
+      template: "{{ todo.name }} ({{ todo.createdAt | date:'shortDate'}})"
+    }
   });
