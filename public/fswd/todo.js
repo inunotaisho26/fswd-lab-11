@@ -53,6 +53,16 @@ angular.module('fswd.todo', [])
         todo: '=task'
       }
       template: "{{ todo.name }}({{ todo.createdAt | date:'shortDate'}})"
-    }
+    })
+    .directive('fswdTask', fucntion(){
+      return {
+        restrict: 'E',
+        scope:{
+          taskList: '=',
+          
+        }
+        template: '/partials/tasklist'
+      }
+    })
 
   });

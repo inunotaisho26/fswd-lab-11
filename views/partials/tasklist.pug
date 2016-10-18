@@ -1,0 +1,4 @@
+ul
+      li(ng-repeat="task in taskList | filter: { name: toFilter } track by $index")
+        input(type="checkbox" ng-click="vm.removeTodo(todo)")
+        fswd-task(task="task")
