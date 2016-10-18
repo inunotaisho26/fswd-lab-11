@@ -40,6 +40,10 @@ angular.module('fswd.todo', [])
       TodoListService.addTodo(toAdd);
     };
 
+    vm.clickedInDirective = function(stuff) {
+      console.log(stuff);
+    };
+
     $scope.$watch(function() {
       return TodoListService.getTodoList();
     }, function(newVal, oldVal) {
@@ -54,5 +58,59 @@ angular.module('fswd.todo', [])
         todo: '=task'
       },
       template: "{{ todo.name }} ({{ todo.createdAt | date:'shortDate'}})"
+    }
+  })
+  .directive('fswdTaskList', function() {
+    return {
+      restrict: 'E',
+      scope: {
+        taskList: '=',
+        onClick: '&',
+        toFilter: '<'
+      },
+      bindToController: true,
+      controllerAs: 'vm',
+      controller: function($scope) {
+        var self = this;
+
+        $scope.$watch(
+          function() { return self.toFilter; },
+          function(newVal, oldVal) {
+            if (newVal !== oldVal) {
+              if (_.isString(newVal)) {
+                self.taskFilter = self.toFilter = { createdAt: newVal };
+              } else {
+                self.taskFilter = newVal;
+              }
+            }
+          }
+        );
+      },
+      templateUrl: '/partials/taskList'
+    }
+  })
+  .component('fswdTaskListComponent', {
+      bindings: {
+        taskList: '=',
+        onClick: '&',
+        toFilter: '<'
+      },
+      controller: function($scope) {
+        var self = this;
+
+        $scope.$watch(
+          function() { return self.toFilter; },
+          function(newVal, oldVal) {
+            if (newVal !== oldVal) {
+              if (_.isString(newVal)) {
+                self.taskFilter = self.toFilter = { createdAt: newVal };
+              } else {
+                self.taskFilter = newVal;
+              }
+            }
+          }
+        );
+      },
+      templateUrl: '/partials/taskListComponent'
     }
   });
